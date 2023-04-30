@@ -1,8 +1,16 @@
 from task4 import app
 
 
-def test_elements_present(dash_duo):
+def test_header_present(dash_duo):
     dash_duo.start_server(app)
     assert dash_duo.find_element("h1").text == "Sales in Regions by Date"
+
+
+def test_graph_present(dash_duo):
+    dash_duo.start_server(app)
     assert dash_duo.find_element("#graph") is not None
+
+
+def test_region_picker_present(dash_duo):
+    dash_duo.start_server(app)
     assert dash_duo.find_element("#region-picker") is not None
