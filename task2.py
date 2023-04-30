@@ -1,18 +1,20 @@
 import pandas as pd
 
+
 def df_normalise(df_raw):
     df_norm = df_raw.query('product == "pink morsel"')
     df_norm['price'] = df_norm['price'].replace(r'[\$,]', '', regex=True).astype(float)
 
-    df_norm['Sales'] =  df_norm['price'] * df_norm['quantity']
+    df_norm['Sales'] = df_norm['price'] * df_norm['quantity']
     df_norm = df_norm.rename(columns={"date": "Date", "region": "Region"})
+    df_norm['Year'] = pd.DatetimeIndex(df_norm['Date']).year
 
-    return df_norm[['Sales','Date','Region']]
+    return df_norm[['Sales', 'Date', 'Region', 'Year']]
+
 
 df_0 = pd.read_csv('data/daily_sales_data_0.csv')
 df_1 = pd.read_csv('data/daily_sales_data_1.csv')
 df_2 = pd.read_csv('data/daily_sales_data_2.csv')
-
 
 df_0_norm = df_normalise(df_0)
 df_1_norm = df_normalise(df_1)
