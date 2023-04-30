@@ -6,13 +6,6 @@ import pandas as pd
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-# assume you have a "long-form" data frame
-# see https://plotly.com/python/px-arguments/ for more options
-
-
-#df = pd.read_csv('data/daily_sales.csv')
-#fig = px.line(df, x="Date", y="Sales", color="Region")
-#fig.add_scatter(x=df['Date'], y=df['Region'])
 
 app.layout = html.Div(children=[
     html.H1(children='Sales in Regions by Date'),
