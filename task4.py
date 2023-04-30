@@ -1,5 +1,5 @@
 import dash
-from dash import html, Output, Input, dcc
+from dash import html, dcc, Input, Output
 import plotly.express as px
 import pandas as pd
 
@@ -7,7 +7,7 @@ import pandas as pd
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-app.layout = html.Div(children=[
+app.layout = html.Div(id="main-wrapper", children=[
     html.H1(children='Sales in Regions by Date', style={'textAlign': 'center', 'color': 'dark grey'}),
     html.Div(children=['Quantium Software Engineering virtual experience program',
                        html.Br(),
@@ -24,7 +24,7 @@ app.layout = html.Div(children=[
         html.Br(),
         html.Label('Regions'),
         dcc.RadioItems(
-            id="radio-items",
+            id="region-picker",
             options=['north', 'east', 'south', 'west', 'all'],
             value='all',
             inline=True
@@ -36,7 +36,7 @@ app.layout = html.Div(children=[
 @app.callback(
     Output("graph", "figure"),
     Input("checklist", "value"),
-    Input("radio-items", "value"))
+    Input("region-picker", "value"))
 def update_line_chart(years, region):
     df = pd.read_csv('data/daily_sales.csv')
     df = df.groupby(['Region', 'Year', 'Month'], as_index=False).agg({'Sales': 'sum'})
@@ -48,6 +48,6 @@ def update_line_chart(years, region):
 
     return fig
 
-
 if __name__ == '__main__':
     app.run_server(debug=True)
+
